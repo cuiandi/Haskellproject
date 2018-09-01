@@ -108,7 +108,7 @@ public class HaskellDrawer{
 		sidebar.setBorder(BorderFactory.createEtchedBorder());
 		sidebar.setLayout(new GridLayout(10,1));
 		JButton fctn=new JButton("Function");
-		JButton vrb=new JButton("Variable");
+		JButton vrb=new JButton("DataType");
 		JToggleButton link=new JToggleButton("Link");
 		sidebar.add(fctn);
 		sidebar.add(vrb);
@@ -122,7 +122,6 @@ public class HaskellDrawer{
 		//draw stage
 		drawstage.setBackground(new Color(255, 255, 255));
 		drawstage.setLayout(null);
-		
 		JScrollPane js=new JScrollPane(drawstage);
 		js.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		js.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

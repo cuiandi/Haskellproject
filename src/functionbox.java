@@ -58,7 +58,6 @@ public class functionbox extends JPanel{
 		JComboBox codetype=new JComboBox();
 		codetype.addItem("Code");
 		codetype.addItem("Code2");
-
 		JScrollPane js=new JScrollPane(codearea);
 		js.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		js.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -91,6 +90,8 @@ public class functionbox extends JPanel{
 				{
 					jp2.remove(jp2.getComponentCount()-1);
 					jp2.revalidate();
+					namelist.remove(namelist.size()-1);
+					typelist.remove(typelist.size()-1);
 					setSize(getSize().width,getSize().height-40);
 					i--;
 				}
