@@ -30,6 +30,7 @@ public class HaskellDrawer{
 
 	private JFrame frame;
 	private ArrayList<functionbox> funclist=new ArrayList<>();
+	private ArrayList<datatypebox> datlist=new ArrayList<>();
 	PFocuslistener pf=new PFocuslistener();
 	Draglistener d=new Draglistener();
 	Linklistener l=new Linklistener();
@@ -84,7 +85,7 @@ public class HaskellDrawer{
 		JToolBar toolBar=new JToolBar();
 		toolBar.setLayout(new FlowLayout(0));
 		//tool bar button
-		JButton btnrun=new JButton("run");
+		JButton btnrun=new JButton("Go!");
 		btnrun.setPreferredSize(new Dimension(40, 40));
 		toolBar.add(btnrun);
 		JButton btnlast=new JButton("last");
@@ -108,10 +109,10 @@ public class HaskellDrawer{
 		sidebar.setBorder(BorderFactory.createEtchedBorder());
 		sidebar.setLayout(new GridLayout(10,1));
 		JButton fctn=new JButton("Function");
-		JButton vrb=new JButton("DataType");
+		JButton datp=new JButton("DataType");
 		JToggleButton link=new JToggleButton("Link");
 		sidebar.add(fctn);
-		sidebar.add(vrb);
+		sidebar.add(datp);
 		sidebar.add(link);
 		cp.add(sidebar,BorderLayout.WEST);
 		//main stage
@@ -156,13 +157,23 @@ public class HaskellDrawer{
 			}
 		});
 		
-		vrb.addActionListener(new ActionListener() {
+		datp.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
-				
+				datatypebox dtb=new datatypebox();
+				drawstage.add(dtb);
+				dtb.setBounds(20, 20, 260, 80);
+				dtb.addMouseListener(d);
+				dtb.addMouseMotionListener(d);
+				dtb.addMouseListener(pf);
+				dtb.addMouseMotionListener(pf);
+				dtb.addMouseListener(l);
+				dtb.addMouseMotionListener(l);
+				drawstage.revalidate();
+				drawstage.repaint();
+				datlist.add(dtb);
 			}
 		});
 		
@@ -204,7 +215,7 @@ public class HaskellDrawer{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				codefactory cf=new codefactory(funclist);
+				codefactory cf=new codefactory(funclist,datlist);
 				jTextArea.setText(cf.runcode().toString());
 			}
 		});

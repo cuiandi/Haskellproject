@@ -1,26 +1,25 @@
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.sun.javafx.collections.MappingChange.Map;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 public class functionbox extends JPanel{
 	private int i=0;
+	private int j=-1;
 	ArrayList<JTextField> namelist=new ArrayList<>();
 	ArrayList<JTextField> typelist=new ArrayList<>();
+	ArrayList<JTextField> conlist=new ArrayList<>();
 	JTextField Fname=new JTextField(10);
 	JTextField Ftype=new JTextField(10);
 	JTextArea codearea=new JTextArea(4,20);
@@ -30,17 +29,18 @@ public class functionbox extends JPanel{
 		JPanel jp1=new JPanel();
 		JPanel jp2=new JPanel();
 		JPanel jp3=new JPanel();
+		JPanel jp4=new JPanel();
 		jp1.setBorder(BorderFactory.createEtchedBorder());
 		jp2.setBorder(BorderFactory.createEtchedBorder());
 		jp3.setBorder(BorderFactory.createEtchedBorder());
-		//init jp1
-
+		jp4.setBorder(BorderFactory.createEtchedBorder());
+		//init jp1 (name)
 		Fname.addFocusListener(new JTextFieldHintListener(Fname, "FunctionName"));
 		Ftype.addFocusListener(new JTextFieldHintListener(Ftype, "Type"));
 		jp1.add(Fname);
 		jp1.add(Ftype);
 		this.add(jp1);
-		//init jp2
+		//init jp2 (parameter)
 		jp2.setLayout(new BoxLayout(jp2, BoxLayout.Y_AXIS));
 		JButton addbtn=new JButton("Add");
 		JButton delbtn=new JButton("Delete");
@@ -53,7 +53,20 @@ public class functionbox extends JPanel{
 		typelist.add(v.gettypetext());
 		jp2.add(v);
 		this.add(jp2);
-		//init jp3
+		//init jp4(con)
+		jp4.setLayout(new BoxLayout(jp4, BoxLayout.Y_AXIS));
+		JLabel conl=new JLabel("Constraints");
+		JButton addconbtn=new JButton("Add");
+		JButton delconbtn=new JButton("Delete");
+		JPanel bcJPanel= new JPanel();	
+		bcJPanel.add(conl,BorderLayout.WEST);
+		bcJPanel.add(addconbtn,BorderLayout.CENTER);
+		bcJPanel.add(delconbtn,BorderLayout.CENTER);
+		jp4.add(bcJPanel);
+		this.add(jp4);
+		
+		
+		//init jp3(code)
 		jp3.setLayout(new BoxLayout(jp3, BoxLayout.Y_AXIS));
 		JComboBox codetype=new JComboBox();
 		codetype.addItem("Code");
@@ -64,6 +77,7 @@ public class functionbox extends JPanel{
 		jp3.add(codetype);
 		jp3.add(js);
 		this.add(jp3);
+		
 		
 		//button action
 		addbtn.addActionListener(new ActionListener() {
@@ -98,6 +112,37 @@ public class functionbox extends JPanel{
 			}
 		});
 		
+		//con btn action
+		addconbtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				j++;
+				conText ct=new conText(j);
+				jp4.add(ct);
+				conlist.add(ct);
+				jp4.revalidate();
+				setSize(getSize().width,getSize().height+40);
+			}
+		});
+		
+		delconbtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(j>-1)
+				{
+					jp4.remove(jp4.getComponentCount()-1);
+					jp4.revalidate();
+					conlist.remove(conlist.size()-1);
+					setSize(getSize().width,getSize().height-40);
+					j--;
+				}
+			}
+		});
+		
 		
 	}
 	
@@ -113,6 +158,13 @@ public class functionbox extends JPanel{
 		return codearea;
 	}
 	
+	
+}
+
+class conText extends JTextField{
+	public conText(int j) {
+		this.addFocusListener(new JTextFieldHintListener(this, "Constraints"+j));
+	}
 	
 }
 

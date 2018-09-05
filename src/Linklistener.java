@@ -23,7 +23,7 @@ public class Linklistener extends MouseAdapter {
 		case 1:
 			link2= (JComponent) e.getSource();
 			if (link1!=link2) {
-				System.out.println("11111");
+				System.out.println("Link");
 			}
 			count++;
 			break;
